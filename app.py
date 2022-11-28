@@ -3,18 +3,17 @@ from jbi100_app.views.menu import make_menu_layout
 from jbi100_app.views.scatterplot import Scatterplot
 
 from dash import html
+import pandas as pd
 import plotly.express as px
 from dash.dependencies import Input, Output
 
 
 if __name__ == '__main__':
     # Create data
-    df = px.data.iris()
-
-    # Instantiate custom views
-    scatterplot1 = Scatterplot("Scatterplot 1", 'sepal_length', 'sepal_width', df)
+    df = px.data.iris();;
+    scatterplot1 = Scatterplot("Scatterplot 1", 'price', 'beds', df)
     scatterplot2 = Scatterplot("Scatterplot 2", 'petal_length', 'petal_width', df)
-
+    # Instantiate custom views
     app.layout = html.Div(
         id="app-container",
         children=[
