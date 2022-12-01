@@ -5,15 +5,26 @@ from jbi100_app.views.scatterplot import Scatterplot
 from dash import html
 import plotly.express as px
 from dash.dependencies import Input, Output
-
+import pandas as pd
+import numpy as np
 
 if __name__ == '__main__':
     # Create data
-    df = px.data.iris()
-
+    df = pd.read_csv('/home/julia/Documents/TUE/Year 2/Quartile 2/Visualizations/Data Sets/Airbnb/airbnb_open_data.csv')
     # Instantiate custom views
-    scatterplot1 = Scatterplot("Scatterplot 1", 'sepal_length', 'sepal_width', df)
-    scatterplot2 = Scatterplot("Scatterplot 2", 'petal_length', 'petal_width', df)
+    def remove_dollar_sign(value):
+        if pd.isna(value):
+            return np.NaN
+        else:
+            return float(value.replace("$", "").replace(",", "").replace(" ", ""))
+    df["price"] = df["price"].apply(lambda x: remove_dollar_sign(x))
+
+    df["service fee"] = df["service fee"].apply(lambda x: remove_dollar_sign(x))
+
+    df["last review"] = pd.to_datetime(df["last review"])
+
+    scatterplot1 = Scatterplot("Reviews vs Price", 'review rate number', 'price', df)
+    scatterplot2 = Scatterplot("g", 'x', 'y', df)
 
     app.layout = html.Div(
         id="app-container",
