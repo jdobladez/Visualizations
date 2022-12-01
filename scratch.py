@@ -27,6 +27,7 @@ df.drop(columns=["country code", "country"], axis=1, inplace=True)
 
 df = df.dropna(subset=['host_identity_verified'])
 
+
 # these two columns do no change as it is always the same city
 
 def remove_dollar_sign(value):
@@ -42,17 +43,37 @@ df["service fee"] = df["service fee"].apply(lambda x: remove_dollar_sign(x))
 
 df["last review"] = pd.to_datetime(df["last review"])
 
-fig = px.scatter(data_frame=df, x="price", y="review rate number", color="host_identity_verified")
+d1 = df.groupby(["review rate number"]).mean()
+
+fig = px.bar(data_frame=d1, y="price")
+fig.update_yaxes(range=[600, 630])
 fig.show()
 
+d2 = df[df["reviews per month"] <= 20]
+
+fig2 = px.scatter(d2, "reviews per month", "price", color="host_identity_verified")
+fig2.show()
+
 app.layout = html.Div(children=[
-    dcc.Graph(
-        id='graph',
-        figure=fig
+    html.Div(
+        id='fuckit',
+        children=[
+            dcc.Graph(
+                id='graph',
+                figure=fig
+            )
+        ]
+    ),
+    html.Div(
+        id='suicide',
+        children=[
+            dcc.Graph(
+                id='graph',
+                figure=fig2
+            )
+        ]
     )
 ])
 
 if __name__ == '__scratch__':
     app.run_server(debug=False, dev_tools_ui=False)
-
-
