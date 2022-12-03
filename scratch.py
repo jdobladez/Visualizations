@@ -43,35 +43,20 @@ df["service fee"] = df["service fee"].apply(lambda x: remove_dollar_sign(x))
 
 df["last review"] = pd.to_datetime(df["last review"])
 
-d1 = df.groupby(["review rate number"]).mean()
+# group by neighbourhood
+# group by score of listings in each neighbourhood
+# number reviews per month
+# and finally per room type
 
-fig = px.bar(data_frame=d1, y="price")
-fig.update_yaxes(range=[600, 630])
+d1 = df.groupby(["neighbourhood", "review rate number"])
+
+fig = px.scatter(data_frame=d1, y="reviews per month", color="room type")
 fig.show()
 
-d2 = df[df["reviews per month"] <= 20]
-
-fig2 = px.scatter(d2, "reviews per month", "price", color="host_identity_verified")
-fig2.show()
-
 app.layout = html.Div(children=[
-    html.Div(
-        id='fuckit',
-        children=[
-            dcc.Graph(
-                id='graph',
-                figure=fig
-            )
-        ]
-    ),
-    html.Div(
-        id='suicide',
-        children=[
-            dcc.Graph(
-                id='graph',
-                figure=fig2
-            )
-        ]
+    dcc.Graph(
+        id='graph',
+        figure=fig
     )
 ])
 
