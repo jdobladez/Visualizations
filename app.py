@@ -11,9 +11,16 @@ import pandas as pd
 from dash.dependencies import Input, Output
 
 
+
 if __name__ == '__main__':
     # Create data
     df = pd.read_csv(R"C:\Users\tania\Desktop\year 3 q2\visualization\airbnb_open_data.csv", low_memory=False)
+    #clean neighbourhood group
+    df['neighbourhood group'] = df['neighbourhood group'].replace(['brookln'], 'Brooklyn')
+    df['neighbourhood group'] = df['neighbourhood group'].replace(['manhatan'], 'Manhattan')
+    #clean instant bookable -> nan to no
+    df['instant_bookable'] = df['instant_bookable'].replace(['nan'], 'no')
+
     fig = go.Figure(data=go.Scattergeo(
         lon=df['long'],
         lat=df['lat'],
