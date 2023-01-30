@@ -165,27 +165,29 @@ app.layout = html.Div([
         html.H1("Analysis on the listings of Airbnbs in New York"),
     ]),
     html.Div([
-        dcc.Graph(figure=scatter, style={'width': '90vh', 'height': '90vh'})
+        dcc.Graph(figure=scatter, style={'width': '90vw', 'height': '90vh'})
     ],
         style={"width": "100%","height": "100%"}),
     html.Hr(),
+    html.H3('Neighbourhood listing analysis'),
     html.Div([
-        html.H4('Neighbourhood listing analysis'),
         html.P("Select a neighbourhood group:"),
         dcc.RadioItems(
             id='neighbourhood_group',
             options=list(all_neighbourhoods.keys()),
             value="Manhattan",
-            inline=True
-        ),
-        dcc.Graph(id="graph")]),
+            inline=True),
+        dcc.Graph(id="graph", style = {'width': '90vh', 'height': '90vh', 'display': 'inline-block'})
+        ], style={'display': 'inline-block'}),
     html.Div([
         html.P("Given the selected neighbourhood group, select a neighbourhood:"),
         dcc.Dropdown(
             id='neighbourhood'),
-        dcc.Graph(id="box")])
-])
 
+        dcc.Graph(id="box", style = {'width': '90vh', 'height': '90vh', 'display': 'inline-block'})
+    ], style={'display': 'inline-block'})
+
+])
 
 @app.callback(
     Output('neighbourhood', 'options'),
