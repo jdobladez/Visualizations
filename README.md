@@ -1,7 +1,7 @@
 # Visualizations - Group 30
 
 
-Our visualization app is composed of two files; main and app.
+The following visualization app is composed of two files; main and app.
 
 Regarding, the main source of data used for this project it can be obtained from: https://www.kaggle.com/datasets/arianazmoudeh/airbnbopendata . However, at first instance the dataset only includes 10 out of the 26 available columns, please make sure to select all, as we used many of these for different cases.
 
