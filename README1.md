@@ -21,7 +21,7 @@ open the command prompt
 cd into the folder where you want to save the files and run the following commands:
 
 ```
-> git clone https://gitlab.tue.nl/s146523/jbi100-2021-2022.git
+> git clone https://github.com/jdobladez/Visualizations.git
 > cd jbi100-2021-2022
 > python -m venv venv
 
