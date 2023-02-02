@@ -71,4 +71,5 @@ You will get a http link, open this in your browser to see the results. You can 
 * [Dash](https://dash.plot.ly/)
 * (NGUYEN THI CAM LAI, 2022) Aribnb-preprocessing + EDA. Available [here](https://www.kaggle.com/code/nguyenthicamlai/aribnb-preprocessing-eda)
 * (Mulani, S., 2020) Detection and Removal of Outliers in Python – An Easy to Understand Guide. Available [here](https://www.askpython.com/python/examples/detection-removal-outliers-in-python)
+* How to calculate CSAT & What it means for your business (2021) MonkeyLearn Blog. Available [here](https://monkeylearn.com/blog/csat-calculation/)
  
