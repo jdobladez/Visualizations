@@ -1,4 +1,4 @@
-# JBI100-example-app
+# AirBnB - New York City Dataset - Visualization App (Group 30)
 
 ## About this app
 
@@ -8,6 +8,8 @@ You can use this as a basic template for your JBI100 visualization project.
 
 * Python 3 (add it to your path (system variables) to make sure you can access it from the command prompt)
 * Git (https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* AirBnB Dataset: https://www.kaggle.com/datasets/arianazmoudeh/airbnbopendata (make sure to select all 26 available columns before downloading)
+* Geographical dataset: 
 
 ## How to run this app
 
