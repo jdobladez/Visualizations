@@ -22,7 +22,7 @@ cd into the folder where you want to save the files and run the following comman
 
 ```
 > git clone https://github.com/jdobladez/Visualizations.git
-> cd jbi100-2021-2022
+> cd group-30
 > python -m venv venv
 
 ```
