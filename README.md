@@ -66,7 +66,7 @@ Run this app locally with any editor:
 * It is mandatory to change the path of the location of the Airbnb dataset and of the geojson file, in case of forgetting to do so an error will appear.
 * It is only needed to run the file app.py
 
-You will get a http link, open this in your browser to see the results. 
+You will get a http link, open this in your browser to see the visualization tool. 
 
 
 ## Resources
