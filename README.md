@@ -2,7 +2,9 @@
 
 ## About this app
 
-You can use this as a basic template for your JBI100 visualization project.
+Our visualization tool's goal is to provide hosts (domains) with a straightforward, interactive mechanism for identifying these patterns and trends in relation to the relevant selected attributes. Hence, the main of our tool is exploration.
+
+Keeping our goal and the intended user in mind, data visualization is a more effective method to curate the vast data into an easy-to-understand graphical representation, over say pure statistical results. Additionally, the user would be able to interact with the plots via manipulation (by zooming, panning, selecting relevant attributes as per choice, etc).
 
 ## Requirements
 
