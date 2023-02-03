@@ -20,8 +20,7 @@ df = pd.read_csv(path_dataframe, low_memory=False) #loads main dataframe
 with open(path_geojson) as f: #loads geojson file which has geographical data
     json = geojson.load(f)
 
-# Cleaning Data
-
+# Cleaning the Airbnb data
 df.columns = [col.lower().replace(" ", "_") for col in df.columns] # we change the names of the attributes
 # we replace the spaces in the names of the attributes with an underscore
 
@@ -155,7 +154,7 @@ all_neighbourhoods = {
 
 # Calculate the satisfaction score for every neighbourhood in New York
 # The formula for the statisfaction score was obtained from:
-# How to calculate CSAT &amp; What it means for your business (2021) MonkeyLearn Blog. Available at: https://monkeylearn.com/blog/csat-calculation/ (Accessed: January 31, 2023).
+# How to calculate CSAT & What it means for your business (2021) MonkeyLearn Blog. Available at: https://monkeylearn.com/blog/csat-calculation/ (Accessed: January 31, 2023).
 
 # First create empty lists, so we can add the values during the for loop
 scores = []
@@ -186,14 +185,14 @@ chorodf['neighbourhood'] = neighbourhoods
 
 scatter_price = px.scatter_mapbox(df, lat="lat", lon="long", color="price",
                             color_continuous_scale=px.colors.sequential.Plasma, mapbox_style="carto-positron",
-                            zoom=10, title='The prices for all the listings in the Airbnb Dataset')
+                            zoom=9.5, title='The prices for all the listings in the Airbnb Dataset')
 choro_price =  px.choropleth_mapbox(df, geojson=json, featureidkey='properties.neighbourhood',locations='neighbourhood',
              center={"lat":40.7128, "lon":-74.0060},color='price',
-            color_continuous_scale=px.colors.sequential.Plasma, mapbox_style='carto-positron', zoom=10,
+            color_continuous_scale=px.colors.sequential.Plasma, mapbox_style='carto-positron', zoom=9.5,
             title='The distribution of prices for each neighbourhood')
 choro_sat = px.choropleth_mapbox(chorodf, geojson=json, featureidkey='properties.neighbourhood',locations='neighbourhood',
              center={"lat":40.7128, "lon":-74.0060},color='sat_score',
-            color_continuous_scale=px.colors.sequential.Viridis, mapbox_style='carto-positron', zoom=10,
+            color_continuous_scale=px.colors.sequential.Viridis, mapbox_style='carto-positron', zoom=9.5,
             title='The distribution of the satisfaction score per neighbourhood')
 
 
@@ -201,20 +200,22 @@ choro_sat = px.choropleth_mapbox(chorodf, geojson=json, featureidkey='properties
 
 app.layout = html.Div([
 
-    html.H1("Explore the AirBnB listings in New York", style={'textAlign': 'center', 'fontSize': 40}), # title of the app
-    html.P('All the different idioms and figures created to help identify '
-            'relationships or trends, can be found below. '
+    html.H1("Explore the AirBnB listings in New York dataset", style={'textAlign': 'center', 'align-items': 'center','fontSize': 40}), # title of the app
+    html.P('Greetings and thanks for visiting this visualization tool created by group 30. It was generated to assist '
+           'AirBnB hosts spot patterns in the data and establish relationships between various characteristics including '
+           'price, the kinds of rooms provided, and the listings locations. '
+        'All the different idioms and figures created to help identify relationships or trends, can be found below. '
             'Please keep in mind while scrolling that the figures might need a few seconds '
-            'to show or update after changing some values.', style={'textAlign': 'center'}), #brief description
+            'to show or update after changing some values.', style={'textAlign': 'center','align-items': 'center','fontSize': 20}), #brief description
     html.Hr(),
-    html.H2('Price of listings and per neighbourhood', style={'textAlign': 'center'}), #first subtitle for price maps
+    html.H2('Price of listings and per neighbourhood', style={'align-items': 'center','textAlign': 'center'}), #first subtitle for price maps
     html.P('For both maps, the darkest color means that the price is low (below $200) and if its yellow the price '
            'equals $1200. Thus, the color sequence means that it goes from darker colours which represent cheaper listings '
            'to lighter colours which are more expensive. '
         'The map on the left shows every listing in the AirBnB dataset. In case of wanting to gain a better insight on a '
            'specific area, please zoom in and the points will start to separate from each other. '
            'Furthermore, the map on the right displays the distribution of price of the listings per '
-           'neighbourhood. The aim of this map is to help identify patterns regarding the price.', style={'textAlign': 'center'}),
+           'neighbourhood. The aim of this map is to help identify patterns regarding the price.', style={'textAlign': 'center','align-items': 'center','fontSize': 20}),
     # description and annotation regarding these two maps
     html.Div([
         dcc.Graph(figure=scatter_price, style={'width': '90vh', 'height': '90vh','display': 'inline-block'})
@@ -222,37 +223,40 @@ app.layout = html.Div([
     html.Div([
         dcc.Graph(figure=choro_price, style={'width': '90vh', 'height': '90vh','display': 'inline-block'})
     ], style={'display': 'inline-block'}), # displays choropleth price map on the right side
-    html.H2('Contrast between price and satisfaction in each neighbourhood', style={'textAlign': 'center'}), # second subtitle for the 3rd map
-    html.Div([
-        html.P("The map below exhibits the satisfaction score per neighbourhood, through a color code. In a similar manner "
+    html.H2('Contrast between price and satisfaction in each neighbourhood', style={'textAlign': 'center','align-items': 'center'}), # second subtitle for the 3rd map
+    html.P("The map below exhibits the satisfaction score per neighbourhood, through a color code. In a similar manner "
                "as the last two maps, the darkest colour indicates low values; satisfaction was low and higher values "
                "mean satisfaction is higher. "
                "To indentify the neighbourhoods with the best quality-price relationship, "
                "the comparison between these 3 maps is required. As they aim to explore the data "
-               "and help find the insight wanted or needed.", style={'textAlign': 'center'}),
-        #description of choropleth satisfaction map
+               "and help find the insight wanted or needed.", style={'textAlign': 'center','align-items': 'center','fontSize': 20}),
+            #description of choropleth satisfaction map
+    html.Div(style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'}, children=[
         dcc.Graph(figure=choro_sat,  style={'width': '90vw', 'height': '90vh'}) #displays choropleth satisfaction map on the center
     ]),
-    html.H2('Neighbourhood listing analysis', style={'textAlign': 'center'}),
+    html.H2('More in-depth location wise exploration', style={'textAlign': 'center','align-items': 'center',}), #displays 3td subtitle
     html.Div([
-        html.P("Select a neighbourhood group:"),
+        html.P("Select a neighbourhood group:", style={'align-items': 'center','fontSize': 20}),
         dcc.RadioItems(
             id='neighbourhood_group',
             options=list(all_neighbourhoods.keys()),
             value="Brooklyn",
-            inline=True),
-        dcc.Graph(id="graph", style = {'width': '90vh', 'height': '90vh', 'display': 'inline-block'})
-        ], style={'display': 'inline-block'}),
+            inline=True), #displays the radioitem to choose the neighbourhood group
+        dcc.Graph(id="graph", style = {'width': '90vh', 'height': '90vh','display': 'inline-block'}), #displays histogram
+        html.P("",
+            style={'textAlign': 'center', 'align-items': 'center', 'fontSize': 20}),
+        # description of histogram
+        ], style={'display': 'inline-block','align-items': 'center'}),
     html.Div([
-        html.P("Given the selected neighbourhood group, select a neighbourhood:"),
+        html.P("Given the selected neighbourhood group, select a neighbourhood:", style={'align-items': 'center','fontSize': 20}),
         dcc.Dropdown(
             id='neighbourhood'),
 
         dcc.Graph(id="box", style = {'width': '90vh', 'height': '90vh', 'display': 'inline-block'})
-    ], style={'display': 'inline-block'}),
+    ], style={'display': 'inline-block','align-items': 'center'}),
     html.Div([
         dcc.Graph(id='heatmap', style={'width': '90vw', 'height': '90vh'})
-    ])
+    ], style={'display': 'flex', 'align-items': 'center', 'justify-content': 'center'})
 
 ])
 # Perform the callbacks which cause the interaction based on following source:
@@ -280,7 +284,11 @@ def display_histogram(neighbourhood_group):
                        labels={'neighbourhood': "Neighbourhoods in chosen  Borough",
                                'availability_365': 'Availability of listings in a year',
                                'room_type': 'Types of rooms offered'},
-                       histfunc='avg', cumulative=False,histnorm=None, color_discrete_sequence=['rgb(229, 134, 6)','rgb(93, 105, 177)','rgb(165, 170, 153)','rgb(36, 121, 108)'], hover_data=data.columns)
+                       histfunc='avg', cumulative=False,histnorm=None,
+
+                       color_discrete_sequence=['rgb(229, 134, 6)','rgb(93, 105, 177)',
+                                                'rgb(165, 170, 153)','rgb(36, 121, 108)'],
+                       hover_data=data.columns)
     return fig
 
 # Returns as output the neighbourhood the user chose in the Dropdown
@@ -310,9 +318,11 @@ def display_boxplot(neighbourhood_group, neighbourhood):
 def display_heatmap(neighbourhood_group):
     heatdf = df[df["neighbourhood_group"] == neighbourhood_group].filter(
         ['neighbourhood', 'price', 'room_type'], axis=1)
-    heat = px.density_heatmap(heatdf, x='neighbourhood', y='room_type', z='price', histfunc='avg',histnorm=None,
-                  labels={'neighbourhood': "Neighbourhoods in chosen  Borough",
-                        'price': 'Price of listings in neignbourhoods',
+    heat = px.density_heatmap(heatdf, x='neighbourhood', y='room_type', z='price',
+                facet_row_spacing=0.05, facet_col_spacing=0.05,
+                histfunc='avg',histnorm=None,
+                  labels={'neighbourhood': "Neighbourhoods in the chosen  Borough",
+                        'price': 'Price of listings in neighbourhoods',
                         'room_type': 'Types of rooms offered'},
                   title='Average price of listings per neighbourhood and types of rooms offered given the chosen Borough')
     return heat
