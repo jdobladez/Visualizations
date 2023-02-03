@@ -41,7 +41,7 @@ In Unix system:
 > source venv/bin/activate
 ```
 
-(Instead of a python virtual environment you can also use an anaconda virtual environment.
+Instead of a python virtual environment you can also use an anaconda virtual environment.
  
 Requirements:
 
@@ -55,7 +55,6 @@ Then you should replace the lines: python -m venv venv and venv\Scripts\activate
 > conda create -n yourenvname
 > conda activate yourenvname
 ```
-)
 
 Install all required packages by running:
 ```
